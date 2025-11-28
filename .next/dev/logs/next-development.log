@@ -1,0 +1,56 @@
+[00:00:02.251] Server  WARN     ⚠ Minimum recommended TypeScript version is v5.1.0, older versions can potentially be incompatible with Next.js. Detected: 5.0.2
+[00:00:02.730] Server  LOG      ✓ Ready in 1763ms
+[00:00:02.736] Server  WARN     ⚠ Cross origin request detected from 192.168.1.34 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+[00:00:05.867] Server  LOG      ○ Compiling / ...
+[00:00:08.978] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:09.169] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html lang="en">
+                          <body
+                            className="font-sans antialiased"
+-                           cz-shortcut-listen="true"
+                          >
+                  ...
+
+[00:00:09.169] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:09.169] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:00:09.169] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://192.168.1.34:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://192.168.1.34:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764332084548}
+[00:12:35.992] Server  LOG      ✓ Compiled in 274ms
+[00:34:47.402] Server  ERROR   C:\Users\Abdul Mateen\OneDrive\Desktop\v0-instagram-video\.next\dev\server\chunks\[root-of-the-server]__43ef04b9._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:34:47.526] Server  ERROR   C:\Users\Abdul Mateen\OneDrive\Desktop\v0-instagram-video\node_modules\.pnpm\next@16.0.3_react-dom@19.2.0_react@19.2.0__react@19.2.0\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:34:47.582] Server  ERROR   C:\Users\Abdul Mateen\OneDrive\Desktop\v0-instagram-video\.next\dev\server\chunks\275cd_next_83f1f887._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:34:47.598] Server  ERROR   C:\Users\Abdul Mateen\OneDrive\Desktop\v0-instagram-video\node_modules\.pnpm\next@16.0.3_react-dom@19.2.0_react@19.2.0__react@19.2.0\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:34:47.603] Server  ERROR   C:\Users\Abdul Mateen\OneDrive\Desktop\v0-instagram-video\node_modules\.pnpm\next@16.0.3_react-dom@19.2.0_react@19.2.0__react@19.2.0\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:34:47.613] Server  ERROR   C:\Users\Abdul Mateen\OneDrive\Desktop\v0-instagram-video\node_modules\.pnpm\next@16.0.3_react-dom@19.2.0_react@19.2.0__react@19.2.0\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:34:47.615] Server  ERROR   C:\Users\Abdul Mateen\OneDrive\Desktop\v0-instagram-video\node_modules\.pnpm\next@16.0.3_react-dom@19.2.0_react@19.2.0__react@19.2.0\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:34:47.619] Server  ERROR   C:\Users\Abdul Mateen\OneDrive\Desktop\v0-instagram-video\node_modules\.pnpm\next@16.0.3_react-dom@19.2.0_react@19.2.0__react@19.2.0\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:34:47.624] Server  ERROR   C:\Users\Abdul Mateen\OneDrive\Desktop\v0-instagram-video\node_modules\.pnpm\next@16.0.3_react-dom@19.2.0_react@19.2.0__react@19.2.0\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:34:47.630] Server  LOG     [v0] Puppeteer backend failed, trying fallback methods: TypeError: fetch failed
