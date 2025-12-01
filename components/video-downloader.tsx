@@ -3,7 +3,18 @@
 import type React from "react"
 
 import { useState } from "react"
-import { Download, Instagram, AlertCircle, CheckCircle2, Loader2, Video, FileVideo } from "lucide-react"
+import {
+  Download,
+  Instagram,
+  Facebook,
+  AlertCircle,
+  CheckCircle2,
+  Loader2,
+  Video,
+  FileVideo,
+  Menu,
+  X,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
@@ -23,6 +34,15 @@ export function VideoDownloader() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [videoData, setVideoData] = useState<VideoData | null>(null)
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  const navItems = [
+    { label: "How it works", href: "#how-it-works" },
+    { label: "Platforms", href: "#supported-platforms" },
+    { label: "Benefits", href: "#why-choose" },
+    { label: "FAQ", href: "#faq" },
+    { label: "Contact", href: "#contact" },
+  ]
 
   const validateInstagramUrl = (url: string): boolean => {
     const patterns = [
@@ -127,17 +147,89 @@ export function VideoDownloader() {
   }
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center px-4 py-12">
-      {/* Header */}
-      <div className="text-center mb-10">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-6">
-          <Instagram className="w-8 h-8 text-primary" />
+    <div className="flex-1 flex flex-col items-center px-4 pb-10 pt-4 md:pt-6 md:pb-14">
+      {/* Hero navigation / header */}
+      <header className="fixed inset-x-0 top-5 z-40 pl-[15px] pr-[15px]">
+        <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 rounded-2xl border border-border/60 bg-card/70 px-4 py-3 backdrop-blur supports-[backdrop-filter]:bg-card/60">
+          <div className="flex items-center gap-3">
+            <div>
+              <p className="text-sm font-semibold text-foreground tracking-tight">
+                Instant Social Downloader
+              </p>
+              <p className="text-xs text-muted-foreground">Instagram • Facebook</p>
+            </div>
+          </div>
+
+          <nav className="hidden items-center gap-5 text-sm text-muted-foreground min-[900px]:flex">
+            {navItems.map((item) => (
+              <a key={item.href} href={item.href} className="hover:text-primary transition">
+                {item.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="hidden md:flex">
+            <a
+              href="#video-downloader-hero"
+              className="inline-flex items-center rounded-full bg-primary px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary-foreground"
+            >
+              Download now
+            </a>
+          </div>
+
+          <button
+            type="button"
+            className="inline-flex items-center justify-center rounded-xl border border-border p-2 text-foreground min-[900px]:hidden"
+            aria-label="Toggle menu"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((prev) => !prev)}
+          >
+            {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
-        <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3 tracking-tight">
+
+        {menuOpen && (
+          <div className="mx-auto mt-2 flex w-full max-w-5xl flex-col gap-2 rounded-2xl border border-border/60 bg-card/80 p-4 text-sm text-muted-foreground min-[900px]:hidden">
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="rounded-xl px-3 py-2 hover:bg-primary/10 hover:text-foreground"
+                onClick={() => setMenuOpen(false)}
+              >
+                {item.label}
+              </a>
+            ))}
+            <a
+              href="#video-downloader-hero"
+              className="mt-2 inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground"
+              onClick={() => setMenuOpen(false)}
+            >
+              Download now
+            </a>
+          </div>
+        )}
+      </header>
+
+      {/* Hero copy */}
+      <div className="mt-24 mb-10 text-center md:mt-28">
+        <div className="mb-5 flex items-center justify-center gap-3">
+          <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
+            <Instagram className="h-5 w-5 text-primary" />
+          </div>
+          <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
+            <Facebook className="h-5 w-5 text-primary" />
+          </div>
+        </div>
+        <h1 className="text-3xl font-bold text-foreground tracking-tight md:text-4xl lg:text-5xl">
           Instagram & Facebook Video Downloader
         </h1>
-        <p className="text-muted-foreground text-base md:text-lg max-w-md mx-auto">
-          Download videos and reels from Instagram & Facebook instantly
+        <p className="mt-4 text-base text-muted-foreground md:text-lg">
+          Download reels and videos from Instagram & Facebook in seconds. No account, no watermark,
+          no hassle.
+        </p>
+        <p className="mt-2 text-xs text-muted-foreground">
+          Paste a public video link from Instagram or Facebook. More platforms coming soon.
         </p>
       </div>
 
@@ -206,7 +298,7 @@ export function VideoDownloader() {
       </Card>
 
       {/* Features */}
-      <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-3xl">
+      <div className="mt-12 grid grid-cols-1 gap-6 w-full max-w-3xl md:grid-cols-3">
         <FeatureCard
           icon={<Video className="w-5 h-5" />}
           title="Multiple Platforms"
