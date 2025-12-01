@@ -6,7 +6,7 @@ import { useState } from "react"
 
 interface VideoResultProps {
   data: {
-    thumbnail?: string
+   thumbnail?: string
     video_url?: string
     quality?: string
     duration?: string
@@ -82,11 +82,24 @@ export function VideoResult({ data }: VideoResultProps) {
       <div className="flex flex-col sm:flex-row gap-4">
         {/* Thumbnail */}
         <div className="relative w-full sm:w-40 h-32 sm:h-24 rounded-lg overflow-hidden bg-muted flex-shrink-0">
-          {data.thumbnail ? (
+          {data.video_url ? (
+            <>
+              <video
+                src={data.video_url}
+                muted
+                loop
+                autoPlay
+                playsInline
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                <Play className="w-8 h-8 text-white fill-white" />
+              </div>
+            </>
+          ) : data.thumbnail ? (
             <>
               <img
                 src={data.thumbnail || "/placeholder.svg"}
-               
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 flex items-center justify-center bg-black/30">

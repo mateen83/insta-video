@@ -67,6 +67,16 @@ async function fetchFacebookVideo(url: string) {
       const result = await method()
       if (result && result.video_url) {
         console.log("[FB] Successfully fetched video!")
+        
+        // If no thumbnail was found, try to extract from the original URL
+        if (!result.thumbnail) {
+          console.log("[FB] No thumbnail found, attempting to extract from URL")
+          const thumbnailResult = await extractFacebookThumbnail(url)
+          if (thumbnailResult) {
+            result.thumbnail = thumbnailResult
+          }
+        }
+        
         return result
       }
     } catch (e) {
@@ -76,6 +86,36 @@ async function fetchFacebookVideo(url: string) {
   }
 
   throw new Error("Unable to fetch Facebook video. The post may be private or unavailable.")
+}
+
+// Extract thumbnail from Facebook URL
+async function extractFacebookThumbnail(url: string) {
+  try {
+    const response = await fetch(url, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      },
+      redirect: "follow"
+    })
+
+    if (!response.ok) return null
+
+    const html = await response.text()
+    
+    // Look for Open Graph image (thumbnail)
+    const ogImageMatch = html.match(/property="og:image"[^>]*content="([^"]+)"/) ||
+                        html.match(/meta[^>]*content="([^"]+)"[^>]*property="og:image"/)
+    
+    if (ogImageMatch) {
+      return ogImageMatch[1].replace(/&amp;/g, "&")
+    }
+
+    return null
+  } catch (e) {
+    console.log("[FB] Thumbnail extraction failed:", e)
+    return null
+  }
 }
 
 // New method using a simple API approach
@@ -111,6 +151,24 @@ async function fetchViaFacebookAPI(url: string) {
       /"playable_url":"([^"]+)"/
     ]
 
+    // Extract thumbnail
+    const thumbnailPatterns = [
+      /"preferred_thumbnail":{"image":{"uri":"([^"]+)"/,
+      /"thumbnailImage":{"uri":"([^"]+)"/,
+      /"og:image"[^>]*content="([^"]+)"/,
+      /"thumbnail_url":"([^"]+)"/,
+      /property="og:image"[^>]*content="([^"]+)"/
+    ]
+    
+    let thumbnail: string | undefined
+    for (const pattern of thumbnailPatterns) {
+      const match = html.match(pattern)
+      if (match) {
+        thumbnail = match[1].replace(/\\/g, "").replace(/&amp;/g, "&")
+        break
+      }
+    }
+
     // Try HD patterns first
     for (const pattern of hdPatterns) {
       const match = html.match(pattern)
@@ -125,7 +183,7 @@ async function fetchViaFacebookAPI(url: string) {
         
         return {
           video_url: videoUrl,
-          thumbnail: undefined,
+          thumbnail: thumbnail,
           quality: "HD"
         }
       }
@@ -152,7 +210,7 @@ async function fetchViaFacebookAPI(url: string) {
         
         return {
           video_url: videoUrl,
-          thumbnail: undefined,
+          thumbnail: thumbnail,
           quality: "SD"
         }
       }
