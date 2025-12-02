@@ -47,299 +47,12 @@ function isFacebookURL(url: string): boolean {
     /facebook\.com\/.*\/videos\//,
     /fb\.watch\//,
     /facebook\.com\/watch\//,
-    /facebook\.com\/share\//,
-    /m\.facebook\.com\/share\//,
   ]
   return fbPatterns.some(pattern => pattern.test(url))
 }
 
-function isFacebookShareURL(url: string): boolean {
-  const sharePatterns = [
-    /facebook\.com\/share\/r\//,
-    /facebook\.com\/share\/v\//,
-    /facebook\.com\/share\/reel\//,
-    /facebook\.com\/share\//,
-    /m\.facebook\.com\/share\/r\//,
-  ]
-  return sharePatterns.some((pattern) => pattern.test(url))
-}
-
-// ============================================
-// HELPER: Base62 Decoder for Facebook Share IDs
-// ============================================
-function base62ToDecimal(base62: string): string {
-  const alphabet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-  let decimal = BigInt(0)
-  const base = BigInt(62)
-  
-  for (let i = 0; i < base62.length; i++) {
-    const char = base62[i]
-    const value = alphabet.indexOf(char)
-    
-    if (value === -1) {
-      throw new Error(`Invalid base62 character: ${char}`)
-    }
-    
-    decimal = decimal * base + BigInt(value)
-  }
-  
-  return decimal.toString()
-}
-
-// ============================================
-// IMPROVED: Multi-Strategy Facebook Share URL Resolver
-// ============================================
-async function resolveFacebookShareURL_Improved(url: string): Promise<string> {
-  console.log("[FB-SHARE] Starting resolution for:", url)
-  
-  // Extract share ID from URL
-  const shareIdMatch = url.match(/\/share\/[rv]\/([A-Za-z0-9]+)/i)
-  const shareId = shareIdMatch ? shareIdMatch[1] : null
-  
-  if (shareId) {
-    console.log("[FB-SHARE] Extracted share ID:", shareId)
-  }
-
-  // ============================================
-  // STRATEGY 1: Direct Cobalt API
-  // ============================================
-  try {
-    console.log("[FB-SHARE] Strategy 1 (Direct Cobalt): Attempting...")
-    
-    const cobaltResponse = await fetch("https://api.cobalt.tools/api/json", {
-      method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        url: url,
-        vCodec: "h264",
-        vQuality: "max"
-      }),
-      signal: AbortSignal.timeout(8000) // 8 second timeout
-    })
-
-    if (cobaltResponse.ok) {
-      const data = await cobaltResponse.json()
-      
-      if (data.status === "redirect" || data.status === "stream" || data.status === "tunnel") {
-        if (data.url) {
-          console.log("[FB-SHARE] Strategy 1 succeeded: Got video URL directly")
-          return url // Return original URL since Cobalt can handle it
-        }
-      }
-    }
-    
-    console.log("[FB-SHARE] Strategy 1 failed: Cobalt couldn't process share URL directly")
-  } catch (e) {
-    console.log("[FB-SHARE] Strategy 1 failed:", e instanceof Error ? e.message : String(e))
-  }
-
-  // ============================================
-  // STRATEGY 2: Base62 Share ID Decoding
-  // ============================================
-  if (shareId) {
-    try {
-      console.log("[FB-SHARE] Strategy 2 (Base62 Decode): Attempting...")
-      
-      const decimalId = base62ToDecimal(shareId)
-      const constructedUrl = `https://www.facebook.com/reel/${decimalId}`
-      
-      console.log("[FB-SHARE] Strategy 2: Extracted ID:", shareId, "Decimal:", decimalId)
-      console.log("[FB-SHARE] Strategy 2: Constructed URL:", constructedUrl)
-      
-      // Test if this URL works with Cobalt
-      const testResponse = await fetch("https://api.cobalt.tools/api/json", {
-        method: "POST",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          url: constructedUrl,
-          vCodec: "h264",
-          vQuality: "max"
-        }),
-        signal: AbortSignal.timeout(8000)
-      })
-
-      if (testResponse.ok) {
-        const data = await testResponse.json()
-        
-        if (data.status === "redirect" || data.status === "stream" || data.status === "tunnel") {
-          if (data.url) {
-            console.log("[FB-SHARE] Strategy 2 succeeded: Resolved to", constructedUrl)
-            return constructedUrl
-          }
-        }
-      }
-      
-      console.log("[FB-SHARE] Strategy 2 failed: Constructed URL didn't work")
-    } catch (e) {
-      console.log("[FB-SHARE] Strategy 2 failed:", e instanceof Error ? e.message : String(e))
-    }
-  }
-
-  // ============================================
-  // STRATEGY 3: HTTP Redirect Tracking
-  // ============================================
-  try {
-    console.log("[FB-SHARE] Strategy 3 (Redirect Tracking): Attempting...")
-    
-    // Try manual redirect first
-    const manualResponse = await fetch(url, {
-      redirect: "manual",
-      headers: {
-        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-      },
-      signal: AbortSignal.timeout(8000)
-    })
-
-    // Check Location header
-    const location = manualResponse.headers.get('location')
-    if (location && !isFacebookShareURL(location) && isFacebookURL(location)) {
-      console.log("[FB-SHARE] Strategy 3 succeeded: Found redirect in Location header:", location)
-      return location
-    }
-
-    // Try following redirects
-    const followResponse = await fetch(url, {
-      redirect: "follow",
-      headers: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-      },
-      signal: AbortSignal.timeout(8000)
-    })
-
-    if (followResponse.ok) {
-      const finalUrl = followResponse.url
-      
-      // Check if we got redirected to a proper URL
-      if (finalUrl && !isFacebookShareURL(finalUrl) && isFacebookURL(finalUrl)) {
-        console.log("[FB-SHARE] Strategy 3 succeeded: Followed redirect to:", finalUrl)
-        return finalUrl
-      }
-
-      // Check HTML for meta refresh
-      const html = await followResponse.text()
-      const metaRefreshMatch = html.match(/<meta[^>]*http-equiv=["']refresh["'][^>]*content=["'][^"']*url=([^"']+)["']/i)
-      
-      if (metaRefreshMatch && metaRefreshMatch[1]) {
-        const refreshUrl = metaRefreshMatch[1].replace(/&amp;/g, "&")
-        if (!isFacebookShareURL(refreshUrl) && isFacebookURL(refreshUrl)) {
-          console.log("[FB-SHARE] Strategy 3 succeeded: Found meta refresh:", refreshUrl)
-          return refreshUrl
-        }
-      }
-
-      // Extract from Open Graph or canonical tags
-      const ogUrlPatterns = [
-        /property="og:url"[^>]*content="([^"]+)"/i,
-        /meta[^>]*content="([^"]+)"[^>]*property="og:url"/i,
-        /<link[^>]*rel="canonical"[^>]*href="([^"]+)"/i,
-      ]
-      
-      for (const pattern of ogUrlPatterns) {
-        const match = html.match(pattern)
-        if (match && match[1]) {
-          const canonicalUrl = match[1].replace(/&amp;/g, "&")
-          if (!isFacebookShareURL(canonicalUrl) && isFacebookURL(canonicalUrl)) {
-            console.log("[FB-SHARE] Strategy 3 succeeded: Found in OG tags:", canonicalUrl)
-            return canonicalUrl
-          }
-        }
-      }
-
-      // Extract reel ID from HTML
-      const reelIdPatterns = [
-        /"video_id":"(\d+)"/,
-        /"videoID":"(\d+)"/,
-        /\/reel\/(\d+)/,
-        /"fbid":"(\d+)"/,
-      ]
-
-      for (const pattern of reelIdPatterns) {
-        const match = html.match(pattern)
-        if (match && match[1]) {
-          const reelId = match[1]
-          const constructedUrl = `https://www.facebook.com/reel/${reelId}`
-          console.log("[FB-SHARE] Strategy 3 succeeded: Extracted reel ID from HTML:", constructedUrl)
-          return constructedUrl
-        }
-      }
-    }
-    
-    console.log("[FB-SHARE] Strategy 3 failed: No redirect or ID found")
-  } catch (e) {
-    console.log("[FB-SHARE] Strategy 3 failed:", e instanceof Error ? e.message : String(e))
-  }
-
-  // ============================================
-  // STRATEGY 4: Headless Browser Resolution (Optional)
-  // ============================================
-  const backendUrl = process.env.BACKEND_URL
-  if (backendUrl) {
-    try {
-      console.log("[FB-SHARE] Strategy 4 (Headless Browser): Attempting...")
-      
-      const backendResponse = await fetch(`${backendUrl}/api/facebook-resolve`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ url }),
-        signal: AbortSignal.timeout(15000) // 15 second timeout for browser
-      })
-
-      if (backendResponse.ok) {
-        const data = await backendResponse.json()
-        
-        if (data.resolved_url && !isFacebookShareURL(data.resolved_url) && isFacebookURL(data.resolved_url)) {
-          console.log("[FB-SHARE] Strategy 4 succeeded: Backend resolved to:", data.resolved_url)
-          return data.resolved_url
-        }
-      }
-      
-      console.log("[FB-SHARE] Strategy 4 failed: Backend couldn't resolve")
-    } catch (e) {
-      console.log("[FB-SHARE] Strategy 4 failed:", e instanceof Error ? e.message : String(e))
-    }
-  } else {
-    console.log("[FB-SHARE] Strategy 4 skipped: No backend configured (BACKEND_URL not set)")
-  }
-
-  // ============================================
-  // STRATEGY 5: Return Original URL
-  // ============================================
-  console.log("[FB-SHARE] All strategies failed, returning original URL for fallback methods")
-  return url
-}
-
-// Keep old function for backward compatibility (just calls new one)
-async function resolveFacebookShareURL(url: string): Promise<string> {
-  return resolveFacebookShareURL_Improved(url)
-}
-
 async function fetchFacebookVideo(url: string) {
   console.log("[FB] Starting Facebook video fetch for:", url)
-  
-  const originalUrl = url
-  let resolvedUrl = url
-
-  if (isFacebookShareURL(url)) {
-    console.log("[FB] Detected share-style URL, attempting to resolve...")
-    const resolved = await resolveFacebookShareURL_Improved(url)
-    if (resolved !== url) {
-      console.log("[FB] Share URL resolved to:", resolved)
-      resolvedUrl = resolved
-      url = resolved
-    } else {
-      console.log("[FB] Share URL resolution returned original URL, will try both")
-    }
-  }
   
   // Try multiple methods for Facebook video download
   const methods = [
@@ -349,7 +62,6 @@ async function fetchFacebookVideo(url: string) {
     () => fetchViaSnapSave(url)
   ]
 
-  // First, try with the resolved URL
   for (const method of methods) {
     try {
       const result = await method()
@@ -359,7 +71,7 @@ async function fetchFacebookVideo(url: string) {
         // If no thumbnail was found, try to extract from the original URL
         if (!result.thumbnail) {
           console.log("[FB] No thumbnail found, attempting to extract from URL")
-          const thumbnailResult = await extractFacebookThumbnail(originalUrl)
+          const thumbnailResult = await extractFacebookThumbnail(url)
           if (thumbnailResult) {
             result.thumbnail = thumbnailResult
           }
@@ -370,32 +82,6 @@ async function fetchFacebookVideo(url: string) {
     } catch (e) {
       console.log("[FB] Method failed, trying next:", e)
       continue
-    }
-  }
-
-  // If resolved URL failed and it's different from original, try with original share URL
-  if (isFacebookShareURL(originalUrl) && originalUrl !== resolvedUrl) {
-    console.log("[FB] Resolved URL failed, trying original share URL with download methods")
-    
-    for (const method of [() => fetchViaCobalAPI(originalUrl), () => fetchViaSnapSave(originalUrl)]) {
-      try {
-        const result = await method()
-        if (result && result.video_url) {
-          console.log("[FB] Successfully fetched video using original share URL!")
-          
-          if (!result.thumbnail) {
-            const thumbnailResult = await extractFacebookThumbnail(originalUrl)
-            if (thumbnailResult) {
-              result.thumbnail = thumbnailResult
-            }
-          }
-          
-          return result
-        }
-      } catch (e) {
-        console.log("[FB] Method with original URL failed, trying next:", e)
-        continue
-      }
     }
   }
 
@@ -560,23 +246,15 @@ async function fetchViaCobalAPI(url: string) {
     })
 
     if (!response.ok) {
-      const errorText = await response.text()
-      console.log("[FB] Cobalt API response not ok:", response.status, errorText.substring(0, 200))
+      console.log("[FB] Cobalt API response not ok:", response.status)
       return null
     }
 
     const data = await response.json()
-    console.log("[FB] Cobalt API full response:", JSON.stringify(data))
-
-    // Check for error status
-    if (data.status === "error") {
-      console.log("[FB] Cobalt API returned error:", data.text || data.error)
-      return null
-    }
+    console.log("[FB] Cobalt API response:", JSON.stringify(data).substring(0, 200))
 
     // Cobalt API returns different response structures
     if (data.status === "redirect" || data.status === "stream" || data.status === "tunnel") {
-      console.log("[FB] Cobalt API success with status:", data.status)
       return {
         video_url: data.url,
         thumbnail: data.thumb || undefined,
@@ -586,7 +264,6 @@ async function fetchViaCobalAPI(url: string) {
     }
 
     if (data.url) {
-      console.log("[FB] Cobalt API success with direct URL")
       return {
         video_url: data.url,
         thumbnail: data.thumb || undefined,
@@ -594,10 +271,8 @@ async function fetchViaCobalAPI(url: string) {
       }
     }
 
-    console.log("[FB] Cobalt API: No video URL in response")
-
   } catch (e) {
-    console.log("[FB] Cobalt API failed with exception:", e)
+    console.log("[FB] Cobalt API failed:", e)
   }
   return null
 }

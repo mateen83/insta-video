@@ -60,9 +60,6 @@ export function VideoDownloader() {
       /^https?:\/\/(www\.)?facebook\.com\/reel\//,
       /^https?:\/\/(www\.)?facebook\.com\/watch\//,
       /^https?:\/\/fb\.watch\//,
-      /^https?:\/\/(www\.)?facebook\.com\/share\/(r|v|reel)\//,
-      /^https?:\/\/(www\.)?facebook\.com\/share\//,
-      /^https?:\/\/m\.facebook\.com\/share\/r\//,
     ]
     return patterns.some((pattern) => pattern.test(url))
   }
