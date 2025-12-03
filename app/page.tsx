@@ -346,7 +346,7 @@ function UsageTipsSection() {
         {tips.map((t) => (
           <div
             key={t.title}
-            className="h-full rounded-2xl border border-border/60 bg-slate-950/60 p-5 shadow-sm"
+            className="h-full rounded-2xl border border-border/60 bg-slate-650/60 p-5 shadow-sm"
           >
             <h3 className="text-sm font-semibold text-foreground md:text-base">{t.title}</h3>
             <p className="mt-2 text-sm text-muted-foreground">{t.description}</p>
@@ -363,7 +363,7 @@ function UsageTipsSection() {
 
 function ContactSection() {
   return (
-    <SectionWrapper id="contact">
+    <SectionWrapper id="contact" >
       <SectionHeader
         eyebrow="Contact"
         title="Get in Touch"

@@ -3,76 +3,120 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* <CHANGE> Dark theme optimized for Instagram downloader - black, charcoal, green accents */
+/* Dark theme with lighter sections + clear card contrast */
 :root {
-  --background: oklch(0.07 0 0); /* #0d0d0d - dark background */
-  --foreground: oklch(0.9 0 0); /* #e0e0e0 - light gray text */
-  --card: oklch(0.12 0 0); /* #1a1a1a - card background */
-  --card-foreground: oklch(0.9 0 0);
-  --popover: oklch(0.12 0 0);
-  --popover-foreground: oklch(0.9 0 0);
-  --primary: oklch(0.72 0.19 145); /* #1db954 - spotify green */
-  --primary-foreground: oklch(0.07 0 0); /* dark text on green */
-  --secondary: oklch(0.15 0 0); /* slightly lighter than card */
-  --secondary-foreground: oklch(0.9 0 0);
-  --muted: oklch(0.2 0 0);
-  --muted-foreground: oklch(0.6 0 0);
-  --accent: oklch(0.78 0.22 145); /* #00c853 - bright green accent */
-  --accent-foreground: oklch(0.07 0 0);
+  /* Page background: not pitch black anymore */
+  --background: oklch(0.18 0.02 260);          /* soft charcoal */
+  --foreground: oklch(0.96 0.01 260);          /* almost white text */
+
+  /* Cards / big panels */
+  --card: oklch(0.24 0.02 260);                /* clearly lighter than background */
+  --card-foreground: var(--foreground);
+
+  /* Small popovers / tooltips */
+  --popover: oklch(0.26 0.02 260);
+  --popover-foreground: var(--foreground);
+
+  /* Green accent (kept from your design) */
+  --primary: oklch(0.72 0.19 145);             /* Spotify-ish green */
+  --primary-foreground: oklch(0.10 0.01 260);  /* dark text on green */
+
+  /* Section backgrounds (like “How it works” blocks) */
+  --secondary: oklch(0.21 0.02 260);           /* between bg and card */
+  --secondary-foreground: var(--foreground);
+
+  /* Muted / input backgrounds */
+  --muted: oklch(0.20 0.015 260);
+  --muted-foreground: oklch(0.75 0.01 260);
+
+  /* Accent blocks (highlighted areas, chips) */
+  --accent: oklch(0.30 0.04 260);              /* lighter bluish panel */
+  --accent-foreground: var(--foreground);
+
   --destructive: oklch(0.55 0.22 27);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.22 0 0);
-  --input: oklch(0.15 0 0);
-  --ring: oklch(0.72 0.19 145);
+
+  /* Borders clearly visible but subtle */
+  --border: oklch(0.32 0.02 260);
+  --input: oklch(0.22 0.02 260);
+  --ring: oklch(0.72 0.19 145);                /* green focus ring */
+
+  /* Charts (for later) */
   --chart-1: oklch(0.72 0.19 145);
   --chart-2: oklch(0.78 0.22 145);
-  --chart-3: oklch(0.5 0 0);
-  --chart-4: oklch(0.6 0 0);
-  --chart-5: oklch(0.7 0 0);
+  --chart-3: oklch(0.60 0.05 260);
+  --chart-4: oklch(0.68 0.10 230);
+  --chart-5: oklch(0.72 0.08 30);
+
   --radius: 0.75rem;
-  --sidebar: oklch(0.1 0 0);
-  --sidebar-foreground: oklch(0.9 0 0);
+
+  /* Sidebar slightly darker than cards */
+  --sidebar: oklch(0.17 0.02 260);
+  --sidebar-foreground: var(--foreground);
   --sidebar-primary: var(--primary);
   --sidebar-primary-foreground: var(--primary-foreground);
-  --sidebar-accent: oklch(0.15 0 0);
-  --sidebar-accent-foreground: oklch(0.9 0 0);
-  --sidebar-border: oklch(0.22 0 0);
-  --sidebar-ring: oklch(0.72 0.19 145);
+  --sidebar-accent: oklch(0.22 0.02 260);
+  --sidebar-accent-foreground: var(--foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+
+  /* NEW: gradient used behind sections */
+  --section-gradient:
+    radial-gradient(circle at 0% 0%,   oklch(0.32 0.04 260 / 0.65), transparent 60%),
+    radial-gradient(circle at 100% 0%, oklch(0.72 0.19 145 / 0.35), transparent 55%),
+    radial-gradient(circle at 50% 100%,oklch(0.28 0.04 260 / 0.55), transparent 60%);
 }
 
 .dark {
-  --background: oklch(0.07 0 0);
-  --foreground: oklch(0.9 0 0);
-  --card: oklch(0.12 0 0);
-  --card-foreground: oklch(0.9 0 0);
-  --popover: oklch(0.12 0 0);
-  --popover-foreground: oklch(0.9 0 0);
-  --primary: oklch(0.72 0.19 145);
-  --primary-foreground: oklch(0.07 0 0);
-  --secondary: oklch(0.15 0 0);
-  --secondary-foreground: oklch(0.9 0 0);
-  --muted: oklch(0.2 0 0);
-  --muted-foreground: oklch(0.6 0 0);
-  --accent: oklch(0.78 0.22 145);
-  --accent-foreground: oklch(0.07 0 0);
+  /* If you use .dark class, keep same feel but a hair deeper */
+  --background: oklch(0.16 0.02 260);
+  --foreground: oklch(0.97 0.01 260);
+
+  --card: oklch(0.23 0.02 260);
+  --card-foreground: var(--foreground);
+
+  --popover: oklch(0.25 0.02 260);
+  --popover-foreground: var(--foreground);
+
+  --primary: oklch(0.75 0.20 145);
+  --primary-foreground: oklch(0.09 0.01 260);
+
+  --secondary: oklch(0.20 0.02 260);
+  --secondary-foreground: var(--foreground);
+
+  --muted: oklch(0.19 0.015 260);
+  --muted-foreground: oklch(0.76 0.01 260);
+
+  --accent: oklch(0.29 0.04 260);
+  --accent-foreground: var(--foreground);
+
   --destructive: oklch(0.55 0.22 27);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.22 0 0);
-  --input: oklch(0.15 0 0);
-  --ring: oklch(0.72 0.19 145);
+
+  --border: oklch(0.31 0.02 260);
+  --input: oklch(0.21 0.02 260);
+  --ring: oklch(0.75 0.20 145);
+
   --chart-1: oklch(0.72 0.19 145);
   --chart-2: oklch(0.78 0.22 145);
-  --chart-3: oklch(0.5 0 0);
-  --chart-4: oklch(0.6 0 0);
-  --chart-5: oklch(0.7 0 0);
-  --sidebar: oklch(0.1 0 0);
-  --sidebar-foreground: oklch(0.9 0 0);
+  --chart-3: oklch(0.60 0.05 260);
+  --chart-4: oklch(0.68 0.10 230);
+  --chart-5: oklch(0.72 0.08 30);
+
+  --sidebar: oklch(0.17 0.02 260);
+  --sidebar-foreground: var(--foreground);
   --sidebar-primary: var(--primary);
   --sidebar-primary-foreground: var(--primary-foreground);
-  --sidebar-accent: oklch(0.15 0 0);
-  --sidebar-accent-foreground: oklch(0.9 0 0);
-  --sidebar-border: oklch(0.22 0 0);
-  --sidebar-ring: oklch(0.72 0.19 145);
+  --sidebar-accent: oklch(0.22 0.02 260);
+  --sidebar-accent-foreground: var(--foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+
+  /* NEW: slightly stronger gradient in dark mode */
+  --section-gradient:
+    radial-gradient(circle at 0% 0%,   oklch(0.30 0.05 260 / 0.75), transparent 60%),
+    radial-gradient(circle at 100% 0%, oklch(0.72 0.19 145 / 0.40), transparent 55%),
+    radial-gradient(circle at 50% 100%,oklch(0.26 0.05 260 / 0.60), transparent 60%);
 }
 
 @theme inline {
@@ -114,6 +158,16 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* NEW: utility class to apply the gradient to sections */
+@layer utilities {
+  .bg-section-gradient {
+    background-color: var(--background);
+    background-image: var(--section-gradient);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 }
 
 @layer base {
