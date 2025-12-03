@@ -149,8 +149,15 @@ export function VideoDownloader() {
   return (
     <div className="flex-1 flex flex-col items-center px-4 pb-10 pt-4 md:pt-6 md:pb-14">
       {/* Hero navigation / header */}
-      <header className="fixed inset-x-0 top-5 z-40 pl-[15px] pr-[15px]">
-        <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 rounded-2xl border border-border/60 bg-card/70 px-4 py-3 backdrop-blur supports-[backdrop-filter]:bg-card/60">
+      <header className="fixed inset-x-0 top-5 z-40 pl-[15px] pr-[15px] ">
+  <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 
+  rounded-3xl border border-white/20 
+  bg-[rgba(255,255,255,0.08)]
+  backdrop-blur-lg 
+  supports-[backdrop-filter]:bg-[rgba(255,255,255,0.05)]
+  px-4 py-3">
+
+
           <div className="flex items-center gap-3">
             <div>
               <p className="text-sm font-semibold text-foreground tracking-tight">
