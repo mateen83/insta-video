@@ -70,7 +70,7 @@ export function VideoResult({ data }: VideoResultProps) {
           alert(`Download failed: ${error.message}`)
         }
       } else {
-        alert("Download failed. Please try again.")
+        alert("Download failed Please try again.")
       }
     } finally {
       setDownloading(false)
