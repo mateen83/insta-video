@@ -64,67 +64,77 @@ function SectionHeader({
     </header>
   )
 }
-
 function HowItWorksSection() {
   return (
-    <SectionWrapper id="how-it-works">
-      <SectionHeader
-        eyebrow="How it works"
-        title="How It Works"
-        subtitle="Download any public video in three simple steps."
-      />
+    <div
+      id="how-it-works"
+      className="relative overflow-hidden rounded-3xl
+        bg-[radial-gradient(900px_420px_at_50%_40%,rgba(34,197,94,0.14),rgba(0,0,0,0)_60%)]
+        before:content-[''] before:absolute before:inset-0 before:pointer-events-none
+        before:bg-[radial-gradient(520px_520px_at_15%_55%,rgba(34,197,94,0.10),rgba(0,0,0,0)_70%)]
+        after:content-[''] after:absolute after:inset-0 after:pointer-events-none
+        after:bg-[radial-gradient(560px_560px_at_85%_55%,rgba(20,184,166,0.10),rgba(59,130,246,0.06)_35%,rgba(0,0,0,0)_75%)]"
+    >
+      <SectionWrapper>
+        <SectionHeader
+          eyebrow="How it works"
+          title="How It Works"
+          subtitle="Download any public video in three simple steps."
+        />
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {[
-          {
-            step: "Step 1",
-            title: "Paste Link",
-            description:
-              "Copy the video URL from Instagram or Facebook and paste it into the box at the top of the page.",
-            icon: "🔗",
-          },
-          {
-            step: "Step 2",
-            title: "Preview & Choose Quality",
-            description:
-              "We fetch the video and show available quality options when the platform supports it.",
-            icon: "👀",
-          },
-          {
-            step: "Step 3",
-            title: "Download Instantly",
-            description:
-              "Click the download button to save the MP4 file directly to your device.",
-            icon: "⬇️",
-          },
-        ].map((item) => (
-          <div
-            key={item.title}
-            className="group flex h-full flex-col rounded-2xl border border-border/70 bg-card/60 p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-primary hover:shadow-lg"
-          >
-            <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-lg">
-              <span aria-hidden="true">{item.icon}</span>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            {
+              step: "Step 1",
+              title: "Paste Link",
+              description:
+                "Copy the video URL from Instagram or Facebook and paste it into the box at the top of the page.",
+              icon: "🔗",
+            },
+            {
+              step: "Step 2",
+              title: "Preview & Choose Quality",
+              description:
+                "We fetch the video and show available quality options when the platform supports it.",
+              icon: "👀",
+            },
+            {
+              step: "Step 3",
+              title: "Download Instantly",
+              description:
+                "Click the download button to save the MP4 file directly to your device.",
+              icon: "⬇️",
+            },
+          ].map((item) => (
+            <div
+              key={item.title}
+              className="group flex h-full flex-col rounded-2xl border border-border/70 bg-card/60 p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-primary hover:shadow-lg"
+            >
+              <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-lg">
+                <span aria-hidden="true">{item.icon}</span>
+              </div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                {item.step}
+              </p>
+              <h3 className="mt-1 text-base font-semibold text-foreground">{item.title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{item.description}</p>
             </div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              {item.step}
-            </p>
-            <h3 className="mt-1 text-base font-semibold text-foreground">{item.title}</h3>
-            <p className="mt-2 text-sm text-muted-foreground">{item.description}</p>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      <div className="mt-8 flex justify-center">
-        <a
-          href="#video-downloader-hero"
-          className="inline-flex items-center gap-2 rounded-full border border-primary/60 bg-primary/10 px-5 py-2 text-sm font-medium text-white transition hover:bg-primary/20"
+        <div className="mt-8 flex justify-center">
+          <a
+            href="#video-downloader-hero"
+            className="inline-flex items-center gap-2 rounded-full border border-primary/60 bg-primary/10 px-5 py-2 text-sm font-medium text-white transition hover:bg-primary/20"
           >
-          Try it now
-        </a>
-      </div>
-    </SectionWrapper>
+            Try it now
+          </a>
+        </div>
+      </SectionWrapper>
+    </div>
   )
 }
+
 
 function SupportedPlatformsSection() {
   const platforms = [
@@ -146,45 +156,55 @@ function SupportedPlatformsSection() {
   ]
 
   return (
-    <SectionWrapper id="supported-platforms">
-      <SectionHeader
-        eyebrow="Platforms"
-        title="Supported Platforms"
-        subtitle="Built for the most popular social platforms today, with more on the way."
-      />
+     <div
+    id="supported-platforms"
+    className="relative overflow-hidden rounded-3xl
+      bg-[radial-gradient(900px_420px_at_50%_45%,rgba(59,130,246,0.12),rgba(0,0,0,0)_60%)]
+      before:content-[''] before:absolute before:inset-0 before:pointer-events-none
+      before:bg-[radial-gradient(520px_520px_at_18%_55%,rgba(99,102,241,0.10),rgba(0,0,0,0)_70%)]
+      after:content-[''] after:absolute after:inset-0 after:pointer-events-none
+      after:bg-[radial-gradient(560px_560px_at_82%_55%,rgba(168,85,247,0.08),rgba(0,0,0,0)_75%)]"
+  >
+      <SectionWrapper>
+        <SectionHeader
+          eyebrow="Platforms"
+          title="Supported Platforms"
+          subtitle="Built for the most popular social platforms today, with more on the way."
+        />
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {platforms.map((p) => (
-          <div
-            key={p.name}
-            className="flex h-full flex-col justify-between rounded-2xl border border-border/70 bg-card p-5"
-          >
-            <div>
-              <div className="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-sm font-semibold text-primary">
-                {p.name[0]}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {platforms.map((p) => (
+            <div
+              key={p.name}
+              className="flex h-full flex-col justify-between rounded-2xl border border-border/70 bg-card p-5"
+            >
+              <div>
+                <div className="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-sm font-semibold text-primary">
+                  {p.name[0]}
+                </div>
+                <h3 className="text-base font-semibold text-foreground">{p.name}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{p.description}</p>
               </div>
-              <h3 className="text-base font-semibold text-foreground">{p.name}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{p.description}</p>
+              <div className="mt-4 flex items-center justify-between text-xs">
+                <span
+                  className={`inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium ${
+                    p.status === "Live"
+                      ? "bg-primary/10 text-primary"
+                      : "bg-muted text-muted-foreground"
+                  }`}
+                >
+                  {p.status}
+                </span>
+              </div>
             </div>
-            <div className="mt-4 flex items-center justify-between text-xs">
-              <span
-                className={`inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium ${
-                  p.status === "Live"
-                    ? "bg-primary/10 text-primary"
-                    : "bg-muted text-muted-foreground"
-                }`}
-              >
-                {p.status}
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      <p className="mt-6 text-center text-xs text-muted-foreground">
-        Get notified when new platforms are added by bookmarking this page or checking back soon.
-      </p>
-    </SectionWrapper>
+        <p className="mt-6 text-center text-xs text-muted-foreground">
+          Get notified when new platforms are added by bookmarking this page or checking back soon.
+        </p>
+      </SectionWrapper>
+    </div>
   )
 }
 
@@ -209,7 +229,7 @@ function WhyChooseSection() {
       icon: "🔑",
     },
     {
-      title: "Privacy‑Friendly",
+      title: "Privacy-Friendly",
       description:
         "We do not store your downloads or track the links you paste, beyond what is needed to process the request.",
       icon: "🛡️",
@@ -217,99 +237,118 @@ function WhyChooseSection() {
   ]
 
   return (
-    <SectionWrapper id="why-choose">
-      <SectionHeader
-        eyebrow="Benefits"
-        title="Why Choose Our Downloader?"
-        subtitle="A simple interface built for speed, quality, and privacy."
-      />
+    <div
+      id="why-choose"
+      className="relative overflow-hidden rounded-3xl
+        bg-[radial-gradient(900px_420px_at_50%_45%,rgba(34,197,94,0.12),rgba(0,0,0,0)_62%)]
+        before:content-[''] before:absolute before:inset-0 before:pointer-events-none
+        before:bg-[radial-gradient(560px_560px_at_18%_55%,rgba(16,185,129,0.10),rgba(0,0,0,0)_72%)]
+        after:content-[''] after:absolute after:inset-0 after:pointer-events-none
+        after:bg-[radial-gradient(620px_620px_at_82%_55%,rgba(34,197,94,0.08),rgba(0,0,0,0)_76%)]"
+    >
+      <SectionWrapper>
+        <SectionHeader
+          eyebrow="Benefits"
+          title="Why Choose Our Downloader?"
+          subtitle="A simple interface built for speed, quality, and privacy."
+        />
 
-      <div className="grid gap-6 md:grid-cols-2">
-        {benefits.map((b) => (
-          <div key={b.title} className="flex gap-4 rounded-2xl border border-border/60 bg-card/60 p-5">
-            <div className="mt-1 inline-flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-base">
-              <span aria-hidden="true" className="font-semibold">
-                {b.icon}
-              </span>
+        <div className="grid gap-6 md:grid-cols-2">
+          {benefits.map((b) => (
+            <div key={b.title} className="flex gap-4 rounded-2xl border border-border/60 bg-card/60 p-5">
+              <div className="mt-1 inline-flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-base">
+                <span aria-hidden="true" className="font-semibold">
+                  {b.icon}
+                </span>
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold text-foreground md:text-base">{b.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{b.description}</p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-sm font-semibold text-foreground md:text-base">{b.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{b.description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      <div className="mt-6 text-center text-xs text-muted-foreground">
-        Curious about privacy details? See the FAQ section below for a concise overview.
-      </div>
-    </SectionWrapper>
+        <div className="mt-6 text-center text-xs text-muted-foreground">
+          Curious about privacy details? See the FAQ section below for a concise overview.
+        </div>
+      </SectionWrapper>
+    </div>
   )
 }
 
 function WorksOnAnyDeviceSection() {
   return (
-    <SectionWrapper id="works-anywhere">
-      <SectionHeader
-        eyebrow="Compatibility"
-        title="Download to Any Device"
-        subtitle="Use the downloader on your phone, tablet, or desktop with smooth playback on most modern media players."
-      />
+    <div
+      id="works-anywhere"
+      className="relative overflow-hidden rounded-3xl
+        bg-[radial-gradient(900px_420px_at_50%_45%,rgba(20,184,166,0.10),rgba(0,0,0,0)_62%)]
+        before:content-[''] before:absolute before:inset-0 before:pointer-events-none
+        before:bg-[radial-gradient(560px_560px_at_18%_55%,rgba(59,130,246,0.08),rgba(0,0,0,0)_72%)]
+        after:content-[''] after:absolute after:inset-0 after:pointer-events-none
+        after:bg-[radial-gradient(620px_620px_at_82%_55%,rgba(34,197,94,0.06),rgba(0,0,0,0)_76%)]"
+    >
+      <SectionWrapper>
+        <SectionHeader
+          eyebrow="Compatibility"
+          title="Download to Any Device"
+          subtitle="Use the downloader on your phone, tablet, or desktop with smooth playback on most modern media players."
+        />
 
-      <div className="grid gap-10 md:grid-cols-2 md:items-center">
-        <div className="space-y-5 text-left">
-          <p className="text-sm text-muted-foreground">
-            All downloads are MP4 files, so you can save them to your camera roll, laptop, or cloud
-            storage and watch them whenever you like.
-          </p>
-          <ul className="space-y-3 text-sm text-muted-foreground">
-            {[
-              "Mobile-friendly interface for quick downloads on the go.",
-              "No app install required — everything runs in your browser.",
-              "Save directly to your device storage or preferred folder.",
-              "Share clips to messaging apps or teams in just a couple of taps.",
-            ].map((item) => (
-              <li key={item} className="flex items-start gap-2">
-                <span className="mt-1 h-2 w-2 rounded-full bg-primary/80" />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-4 flex flex-wrap gap-3">
-            <button
-              type="button"
-              className="inline-flex items-center rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30 transition hover:bg-primary/90"
-            >
-              Open on your phone
-            </button>
-            <button
-              type="button"
-              className="inline-flex items-center rounded-full border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground hover:border-primary hover:text-foreground"
-            >
-              Copy link to share
-            </button>
+        <div className="grid gap-10 md:grid-cols-2 md:items-center">
+          <div className="space-y-5 text-left">
+            <p className="text-sm text-muted-foreground">
+              All downloads are MP4 files, so you can save them to your camera roll, laptop, or cloud
+              storage and watch them whenever you like.
+            </p>
+            <ul className="space-y-3 text-sm text-muted-foreground">
+              {[
+                "Mobile-friendly interface for quick downloads on the go.",
+                "No app install required — everything runs in your browser.",
+                "Save directly to your device storage or preferred folder.",
+                "Share clips to messaging apps or teams in just a couple of taps.",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-2">
+                  <span className="mt-1 h-2 w-2 rounded-full bg-primary/80" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-4 flex flex-wrap gap-3">
+              <button
+                type="button"
+                className="inline-flex items-center rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30 transition hover:bg-primary/90"
+              >
+                Open on your phone
+              </button>
+              <button
+                type="button"
+                className="inline-flex items-center rounded-full border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground hover:border-primary hover:text-foreground"
+              >
+                Copy link to share
+              </button>
+            </div>
+          </div>
+
+          <div className="mx-auto w-full max-w-md">
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-border/70 bg-card">
+              <Image
+                src="/img.jpg"
+                alt="Preview of downloads on desktop, tablet and mobile devices"
+                fill
+                className="object-cover"
+              />
+            </div>
           </div>
         </div>
-
-        <div className="mx-auto w-full max-w-md">
-          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-border/70 bg-card">
-            <Image
-              src="/img.jpg"
-              alt="Preview of downloads on desktop, tablet and mobile devices"
-              fill
-              className="object-cover"
-            />
-          </div>
+        <div className="mt-4 rounded-2xl border border-border/60 bg-card/80 p-4 text-center text-xs text-muted-foreground">
+          Preview how your downloads look across desktop, tablet, and mobile devices — the same simple
+          interface everywhere.
         </div>
-      </div>
-      <div className="mt-4 rounded-2xl border border-border/60 bg-card/80 p-4 text-center text-xs text-muted-foreground">
-        Preview how your downloads look across desktop, tablet, and mobile devices — the same simple
-        interface everywhere.
-      </div>
-    </SectionWrapper>
+      </SectionWrapper>
+    </div>
   )
 }
-
 function UsageTipsSection() {
   const tips = [
     {
@@ -335,112 +374,129 @@ function UsageTipsSection() {
   ]
 
   return (
-    <SectionWrapper id="usage-tips">
-      <SectionHeader
-        eyebrow="Use cases"
-        title="Smart Ways to Use the Downloader"
-        subtitle="Here are a few creator‑friendly ways people use downloaded videos."
-      />
+    <div
+      id="usage-tips"
+      className="relative overflow-hidden rounded-3xl
+        bg-[radial-gradient(900px_420px_at_20%_35%,rgba(34,197,94,0.11),rgba(0,0,0,0)_62%)]
+        before:content-[''] before:absolute before:inset-0 before:pointer-events-none
+        before:bg-[radial-gradient(560px_560px_at_75%_25%,rgba(20,184,166,0.09),rgba(0,0,0,0)_72%)]
+        after:content-[''] after:absolute after:inset-0 after:pointer-events-none
+        after:bg-[radial-gradient(620px_620px_at_55%_80%,rgba(59,130,246,0.06),rgba(0,0,0,0)_76%)]"
+    >
+      <SectionWrapper>
+        <SectionHeader
+          eyebrow="Use cases"
+          title="Smart Ways to Use the Downloader"
+          subtitle="Here are a few creator-friendly ways people use downloaded videos."
+        />
 
-      <div className="grid gap-6 md:grid-cols-2">
-        {tips.map((t) => (
-          <div
-            key={t.title}
-            className="h-full rounded-2xl border border-border/60 bg-slate-650/60 p-5 shadow-sm"
-          >
-            <h3 className="text-sm font-semibold text-foreground md:text-base">{t.title}</h3>
-            <p className="mt-2 text-sm text-muted-foreground">{t.description}</p>
-          </div>
-        ))}
-      </div>
+        <div className="grid gap-6 md:grid-cols-2">
+          {tips.map((t) => (
+            <div
+              key={t.title}
+              className="h-full rounded-2xl border border-border/60 bg-slate-650/60 p-5 shadow-sm"
+            >
+              <h3 className="text-sm font-semibold text-foreground md:text-base">{t.title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{t.description}</p>
+            </div>
+          ))}
+        </div>
 
-      <p className="mt-6 text-center text-xs text-muted-foreground">
-        Always respect creators&apos; copyrights and each platform&apos;s terms of service.
-      </p>
-    </SectionWrapper>
+        <p className="mt-6 text-center text-xs text-muted-foreground">
+          Always respect creators&apos; copyrights and each platform&apos;s terms of service.
+        </p>
+      </SectionWrapper>
+    </div>
   )
 }
 
+
 function ContactSection() {
   return (
-    <SectionWrapper id="contact" >
-      <SectionHeader
-        eyebrow="Contact"
-        title="Get in Touch"
-        subtitle="Have feedback, questions, or partnership ideas? Send a quick message and we’ll get back to you."
-      />
+    <div
+      id="contact"
+      className="relative overflow-hidden rounded-3xl
+        bg-[radial-gradient(900px_420px_at_80%_30%,rgba(20,184,166,0.12),rgba(0,0,0,0)_62%)]
+        before:content-[''] before:absolute before:inset-0 before:pointer-events-none
+        before:bg-[radial-gradient(560px_560px_at_20%_35%,rgba(99,102,241,0.10),rgba(0,0,0,0)_72%)]
+        after:content-[''] after:absolute after:inset-0 after:pointer-events-none
+        after:bg-[radial-gradient(620px_620px_at_50%_90%,rgba(59,130,246,0.07),rgba(0,0,0,0)_76%)]"
+    >
+      <SectionWrapper>
+        <SectionHeader
+          eyebrow="Contact"
+          title="Get in Touch"
+          subtitle="Have feedback, questions, or partnership ideas? Send a quick message and we’ll get back to you."
+        />
 
-      <div className="grid gap-10 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] md:items-start">
-        <form className="space-y-4 rounded-2xl border border-border/70 bg-card/80 p-5 md:p-6">
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="space-y-1.5">
-              <label htmlFor="contact-name" className="text-sm font-medium text-foreground">
-                Name
-              </label>
-              <input
-                id="contact-name"
-                type="text"
-                className="w-full rounded-lg border border-input bg-input px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                placeholder="Your name"
-              />
+        <div className="grid gap-10 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] md:items-start">
+          <form className="space-y-4 rounded-2xl border border-border/70 bg-card/80 p-5 md:p-6">
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="space-y-1.5">
+                <label htmlFor="contact-name" className="text-sm font-medium text-foreground">
+                  Name
+                </label>
+                <input
+                  id="contact-name"
+                  type="text"
+                  className="w-full rounded-lg border border-input bg-input px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                  placeholder="Your name"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <label htmlFor="contact-email" className="text-sm font-medium text-foreground">
+                  Email
+                </label>
+                <input
+                  id="contact-email"
+                  type="email"
+                  className="w-full rounded-lg border border-input bg-input px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                  placeholder="you@example.com"
+                />
+              </div>
             </div>
             <div className="space-y-1.5">
-              <label htmlFor="contact-email" className="text-sm font-medium text-foreground">
-                Email
+              <label htmlFor="contact-message" className="text-sm font-medium text-foreground">
+                Message
               </label>
-              <input
-                id="contact-email"
-                type="email"
-                className="w-full rounded-lg border border-input bg-input px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                placeholder="you@example.com"
+              <textarea
+                id="contact-message"
+                rows={4}
+                className="w-full resize-none rounded-lg border border-input bg-input px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                placeholder="Tell us how we can help…"
               />
             </div>
-          </div>
-          <div className="space-y-1.5">
-            <label htmlFor="contact-message" className="text-sm font-medium text-foreground">
-              Message
-            </label>
-            <textarea
-              id="contact-message"
-              rows={4}
-              className="w-full resize-none rounded-lg border border-input bg-input px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-              placeholder="Tell us how we can help…"
-            />
-          </div>
-          <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
-            <button
-              type="submit"
-              className="inline-flex items-center rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
-            >
-              Send message
-            </button>
-            <p className="text-xs text-muted-foreground">
-              We reply to most messages within 1–2 business days.
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+              <button
+                type="submit"
+                className="inline-flex items-center rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
+              >
+                Send message
+              </button>
+              <p className="text-xs text-muted-foreground">
+                We reply to most messages within 1–2 business days.
+              </p>
+            </div>
+          </form>
+
+          <div className="space-y-4 rounded-2xl border border-border/60 bg-card/60 p-5 text-sm text-muted-foreground">
+            <h3 className="text-sm font-semibold text-foreground">Support & feedback</h3>
+            <p>
+              Use this form for general questions, feature requests, or business inquiries. For urgent
+              technical issues, you can also mention details about the URL or platform that is not
+              working.
+            </p>
+            <p className="text-xs">
+              Please do not share passwords or sensitive personal information. We will never ask for
+              your social media login details.
+            </p>
+            <p className="text-xs">
+              Our support team typically responds within 24–48 hours. For complex issues, please provide as much context as possible so we can assist you efficiently.
             </p>
           </div>
-        </form>
-
-        <div className="space-y-4 rounded-2xl border border-border/60 bg-card/60 p-5 text-sm text-muted-foreground">
-          <h3 className="text-sm font-semibold text-foreground">Support & feedback</h3>
-          <p>
-            Use this form for general questions, feature requests, or business inquiries. For urgent
-            technical issues, you can also mention details about the URL or platform that is not
-            working.
-          </p>
-          <p className="text-xs">
-            Please do not share passwords or sensitive personal information. We will never ask for
-            your social media login details.
-          </p>
-          <p className="text-xs">
-          Our support team typically responds within 24–48 hours. For complex issues, please provide as much context as possible so we can assist you efficiently.
-          </p>
-
-          
-
-
         </div>
-      </div>
-    </SectionWrapper>
+      </SectionWrapper>
+    </div>
   )
 }
 
@@ -448,7 +504,7 @@ function FaqSection() {
   const faqs = [
     {
       q: "Is this tool free to use?",
-      a: "Yes. The downloader is free for personal, non‑commercial use.",
+      a: "Yes. The downloader is free for personal, non-commercial use.",
     },
     {
       q: "Can I download private videos?",
@@ -473,45 +529,62 @@ function FaqSection() {
   ]
 
   return (
-    <SectionWrapper id="faq">
-      <SectionHeader
-        eyebrow="FAQ"
-        title="Frequently Asked Questions"
-        subtitle="Short answers to the most common questions about using this downloader."
-      />
+    <div
+      id="faq"
+      className="relative overflow-hidden rounded-3xl
+        bg-[radial-gradient(900px_420px_at_25%_30%,rgba(99,102,241,0.10),rgba(0,0,0,0)_62%)]
+        before:content-[''] before:absolute before:inset-0 before:pointer-events-none
+        before:bg-[radial-gradient(560px_560px_at_85%_35%,rgba(59,130,246,0.09),rgba(0,0,0,0)_72%)]
+        after:content-[''] after:absolute after:inset-0 after:pointer-events-none
+        after:bg-[radial-gradient(620px_620px_at_50%_90%,rgba(20,184,166,0.06),rgba(0,0,0,0)_76%)]"
+    >
+      <SectionWrapper>
+        <SectionHeader
+          eyebrow="FAQ"
+          title="Frequently Asked Questions"
+          subtitle="Short answers to the most common questions about using this downloader."
+        />
 
-      <div className="space-y-3">
-        {faqs.map((item) => (
-          <details
-            key={item.q}
-            className="group rounded-xl border border-border/70 bg-card/60 px-4 py-3 text-sm"
-          >
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
-              <span className="font-medium text-foreground">{item.q}</span>
-              <span className="text-xs text-muted-foreground group-open:hidden">Show</span>
-              <span className="hidden text-xs text-muted-foreground group-open:inline">Hide</span>
-            </summary>
-            <p className="mt-2 text-sm text-muted-foreground">{item.a}</p>
-          </details>
-        ))}
-      </div>
+        <div className="space-y-3">
+          {faqs.map((item) => (
+            <details
+              key={item.q}
+              className="group rounded-xl border border-border/70 bg-card/60 px-4 py-3 text-sm"
+            >
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
+                <span className="font-medium text-foreground">{item.q}</span>
+                <span className="text-xs text-muted-foreground group-open:hidden">Show</span>
+                <span className="hidden text-xs text-muted-foreground group-open:inline">Hide</span>
+              </summary>
+              <p className="mt-2 text-sm text-muted-foreground">{item.a}</p>
+            </details>
+          ))}
+        </div>
 
-      <p className="mt-6 text-xs text-muted-foreground">
-        This site is not affiliated with Instagram, Facebook, or Meta Platforms, Inc. Always follow
-        local laws and each platform&apos;s terms of service.
-      </p>
+        <p className="mt-6 text-xs text-muted-foreground">
+          This site is not affiliated with Instagram, Facebook, or Meta Platforms, Inc. Always follow
+          local laws and each platform&apos;s terms of service.
+        </p>
 
-      <p className="mt-2 text-xs text-muted-foreground">
-        Still have questions? You can add a simple contact link or email here to let people reach
-        out.
-      </p>
-    </SectionWrapper>
+        <p className="mt-2 text-xs text-muted-foreground">
+          Still have questions? You can add a simple contact link or email here to let people reach
+          out.
+        </p>
+      </SectionWrapper>
+    </div>
   )
 }
 
 function AppFooterSection() {
   return (
-    <footer className="w-full border-t border-border/60 bg-background/95">
+   <footer
+  className="mx-auto w-full max-w-7xl border-t border-border/60 border border-white/20
+    rounded-t-3xl
+    bg-[rgba(255,255,255,0.08)]
+    backdrop-blur-lg
+    supports-[backdrop-filter]:bg-[rgba(255,255,255,0.05)]"
+>
+
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-4 py-8 md:flex-row md:items-start md:justify-between">
         <div className="space-y-3 md:max-w-sm">
           <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1">
@@ -549,6 +622,7 @@ function AppFooterSection() {
               </li>
             </ul>
           </div>
+
           <div>
             <h3 className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
               Legal
@@ -558,6 +632,7 @@ function AppFooterSection() {
               respect copyrights and platform terms.
             </p>
           </div>
+
           <div>
             <h3 className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
               Follow
@@ -575,6 +650,15 @@ function AppFooterSection() {
               ))}
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Bottom copyright row (no extra styling added) */}
+      <div className="border-t border-border/60">
+        <div className="mx-auto w-full max-w-5xl px-4 py-4">
+          <p className="text-center text-xs text-muted-foreground">
+            © 2025 Social Video Downloader. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

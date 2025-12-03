@@ -147,10 +147,18 @@ export function VideoDownloader() {
   }
 
   return (
-    <div className="flex-1 flex flex-col items-center px-4 pb-10 pt-4 md:pt-6 md:pb-14">
+<div className="flex-1 flex flex-col items-center px-4 pb-10 pt-4 md:pt-6 md:pb-14 relative overflow-hidden
+  bg-[radial-gradient(1200px_600px_at_50%_50%,rgba(34,197,94,0.18),rgba(0,0,0,0)_60%)]
+  before:content-[''] before:absolute before:inset-0 before:-z-10
+  before:bg-[radial-gradient(520px_520px_at_15%_50%,rgba(34,197,94,0.18),rgba(0,0,0,0)_70%)]
+  after:content-[''] after:absolute after:inset-0 after:-z-10
+  after:bg-[radial-gradient(560px_560px_at_85%_50%,rgba(20,184,166,0.16),rgba(59,130,246,0.08)_35%,rgba(0,0,0,0)_75%)]">
+
+
+
       {/* Hero navigation / header */}
       <header className="fixed inset-x-0 top-5 z-40 pl-[15px] pr-[15px] ">
-  <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 
+  <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 
   rounded-3xl border border-white/20 
   bg-[rgba(255,255,255,0.08)]
   backdrop-blur-lg 
