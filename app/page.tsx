@@ -10,10 +10,12 @@ export default function Home() {
       </div>
 
       {/* New marketing / information sections below the hero */}
-      <HowItWorksSection />
       <SupportedPlatformsSection />
-      <WhyChooseSection />
+      <HowItWorksSection />
+      
+      
       <WorksOnAnyDeviceSection />
+      <WhyChooseSection />
       <UsageTipsSection />
       <ContactSection />
       <FaqSection />
@@ -333,7 +335,7 @@ function WorksOnAnyDeviceSection() {
           <div className="mx-auto w-full max-w-md">
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-border/70 bg-card">
               <Image
-                src="/img.jpg"
+                src="/img.png"
                 alt="Preview of downloads on desktop, tablet and mobile devices"
                 fill
                 className="object-cover"
